@@ -1,0 +1,45 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+build/
+.out/
+.next/
+temp/
+tmp/
+.vscode/
+
+# Cache
+.cache/
+*.tmp
+*.swp
+
+# IDEs and editors
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Package lockfiles
+package-lock.json
+yarn.lock

@@ -1,0 +1,5 @@
+@use "../base/colors" as colors;
+
+.title {
+  color: colors.brand-color("title", "color");
+}

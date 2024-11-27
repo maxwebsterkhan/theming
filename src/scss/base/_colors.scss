@@ -1,0 +1,32 @@
+@use "sass:map";
+
+$colors: (
+  "black": #000,
+  "blue": #2e6bee,
+  "orange": #e7802b,
+) !default;
+
+$brand-colors: (
+  "title": (
+    "color": map.get($colors, "blue"),
+  ),
+  "button": (
+    "background-color": map.get($colors, "orange"),
+    "color": map.get($colors, "black"),
+  ),
+) !default;
+
+$brand-colors-override: () !default;
+
+$brand-colors: map.merge($brand-colors, $brand-colors-override);
+
+// Function to get a brand color
+@function brand-color($name, $key) {
+  @if map.has-key($brand-colors, $name) {
+    $color-map: map.get($brand-colors, $name);
+    @if map.has-key($color-map, $key) {
+      @return map.get($color-map, $key);
+    }
+  }
+  @error "Color key `#{$key}` not found in `#{$name}`.";
+}

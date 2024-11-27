@@ -1,0 +1,24 @@
+@use "sass:map";
+
+$colors: (
+  "black": #000,
+  "purple": #7b0674,
+  "cyan": #00a2a9,
+);
+
+$brand-colors-override: (
+  "title": (
+    "color": map.get($colors, "cyan"),
+  ),
+  "button": (
+    "background-color": map.get($colors, "purple"),
+    "color": map.get($colors, "cyan"),
+  ),
+);
+
+@use "../../base/colors" with (
+  $brand-colors-override: $brand-colors-override
+);
+
+@use "../../base/base";
+@use "../../components/index.scss";

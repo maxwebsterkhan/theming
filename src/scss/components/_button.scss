@@ -1,0 +1,9 @@
+@use "../base/colors" as colors;
+
+.button {
+  background-color: colors.brand-color("button", "background-color");
+  color: colors.brand-color("button", "color");
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+}

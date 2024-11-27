@@ -1,0 +1,24 @@
+@use "sass:map";
+
+$colors: (
+  "black": #1f1f1f,
+  "green": #447d6e,
+  "grey": #6b7581,
+);
+
+$brand-colors-override: (
+  "title": (
+    "color": map.get($colors, "grey"),
+  ),
+  "button": (
+    "background-color": map.get($colors, "green"),
+    "color": map.get($colors, "black"),
+  ),
+);
+
+@use "../../base/colors" with (
+  $brand-colors-override: $brand-colors-override
+);
+
+@use "../../base/base";
+@use "../../components/index.scss";
