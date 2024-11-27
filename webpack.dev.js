@@ -16,6 +16,5 @@ module.exports = (env) =>
       open: true,
       hot: true,
       watchFiles: ["src/**/*.html", "src/**/*.scss", "src/**/*.js"],
-      files,
     },
   });
