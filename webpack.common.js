@@ -6,12 +6,11 @@ const RemoveEmptyScriptsPlugin = require("webpack-remove-empty-scripts");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = (env) => {
-  const activeTheme = env.theme || "polypipe"; // Default theme is 'polypipe'
+  const activeTheme = env.theme || "polypipe";
 
-  // Define entry points
   const entries = {
-    main: ["./src/js/index.js"], // Main JavaScript entry
-    [`theme-${activeTheme}`]: `./src/scss/themes/${activeTheme}/${activeTheme}.scss`, // Active theme SCSS
+    main: ["./src/js/index.js"],
+    [`theme-${activeTheme}`]: `./src/scss/themes/${activeTheme}/${activeTheme}.scss`,
   };
 
   return {
@@ -19,7 +18,7 @@ module.exports = (env) => {
     output: {
       filename: "js/[name].js",
       path: path.resolve(__dirname, "dist"),
-      publicPath: "/", // Ensures assets are served from the root
+      publicPath: "/",
       assetModuleFilename: "assets/[name][ext][query]",
     },
     resolve: {
@@ -38,7 +37,6 @@ module.exports = (env) => {
     },
     module: {
       rules: [
-        // JavaScript and TypeScript loaders
         {
           test: /\.(ts|js)x?$/,
           exclude: /node_modules/,
@@ -53,7 +51,7 @@ module.exports = (env) => {
             },
           },
         },
-        // SCSS Loaders
+
         {
           test: /\.s[ac]ss$/i,
           include: path.resolve(__dirname, `./src/scss/themes/${activeTheme}`),
@@ -75,12 +73,10 @@ module.exports = (env) => {
             },
           ],
         },
-        // CSS Loader
         {
           test: /\.css$/,
           use: [MiniCssExtractPlugin.loader, "css-loader"],
         },
-        // Asset Loaders
         {
           test: /\.(png|svg|jpg|jpeg|gif)$/i,
           type: "asset/resource",
@@ -116,9 +112,9 @@ module.exports = (env) => {
     },
     plugins: [
       new CleanWebpackPlugin(),
-      new RemoveEmptyScriptsPlugin(), // Prevents emitting empty JS files for SCSS entries
+      new RemoveEmptyScriptsPlugin(),
       new MiniCssExtractPlugin({
-        filename: "css/[name].css", // Outputs CSS files into the 'css' directory
+        filename: "css/[name].css",
       }),
       new WebpackSVGSpritely({
         output: "generated-icons",
@@ -130,7 +126,7 @@ module.exports = (env) => {
         combine: true,
       }),
       new HtmlWebpackPlugin({
-        template: "./src/index.html", // Your HTML template
+        template: "./src/index.html",
         filename: "index.html",
         inject: "body",
         chunks: ["main", `theme-${activeTheme}`], // Inject the main script and active theme

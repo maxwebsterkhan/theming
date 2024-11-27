@@ -12,9 +12,10 @@ module.exports = (env) =>
         publicPath: "/",
       },
       compress: true,
-      port: 8080, // Change if needed
-      open: true, // Automatically opens the browser
-      hot: true, // Enables hot module replacement
-      watchFiles: ["src/**/*.html", "src/**/*.scss", "src/**/*.js"], // Watches for changes in these files
+      port: 8080,
+      open: true,
+      hot: true,
+      watchFiles: ["src/**/*.html", "src/**/*.scss", "src/**/*.js"],
+      files,
     },
   });

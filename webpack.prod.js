@@ -7,5 +7,4 @@ module.exports = (env) =>
   merge(common(env), {
     mode: "production",
     devtool: "source-map",
-    // Add any production-specific configurations here
   });
