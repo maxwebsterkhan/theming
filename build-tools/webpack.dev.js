@@ -1,5 +1,8 @@
+// build-tools/webpack.dev.js
+
 const { merge } = require("webpack-merge");
 const common = require("./webpack.common.js");
+const config = require("./config");
 const path = require("path");
 
 module.exports = (env) =>
@@ -8,7 +11,7 @@ module.exports = (env) =>
     devtool: "inline-source-map",
     devServer: {
       static: {
-        directory: path.resolve(__dirname, "dist"),
+        directory: config.paths.dist,
         publicPath: "/",
       },
       compress: true,
@@ -17,4 +20,8 @@ module.exports = (env) =>
       hot: true,
       watchFiles: ["src/**/*.html", "src/**/*.scss", "src/**/*.js"],
     },
+    plugins: [
+      // Add any development-specific plugins here
+    ],
+    // You can add development-specific module rules or overrides here
   });

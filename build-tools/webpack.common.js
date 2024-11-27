@@ -1,38 +1,41 @@
+// build-tools/webpack.common.js
+
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebpackSVGSpritely = require("webpack-svg-spritely");
 const RemoveEmptyScriptsPlugin = require("webpack-remove-empty-scripts");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const config = require("./config");
 
 module.exports = (env) => {
   const activeTheme = env.theme || "polypipe";
 
   const entries = {
-    main: ["./src/js/index.js"],
-    [`theme-${activeTheme}`]: `./src/scss/themes/${activeTheme}/${activeTheme}.scss`,
+    main: ["@js/index.js"],
+    [`theme-${activeTheme}`]: `./src/scss/themes/${activeTheme}.scss`,
   };
 
   return {
     entry: entries,
     output: {
       filename: "js/[name].js",
-      path: path.resolve(__dirname, "dist"),
+      path: config.paths.dist,
       publicPath: "/",
       assetModuleFilename: "assets/[name][ext][query]",
     },
     resolve: {
       extensions: [".tsx", ".ts", ".js"],
       alias: {
-        "@": path.resolve(__dirname, "src"),
-        "@layouts": path.resolve(__dirname, "../Views/Shared/Layouts"),
-        "@views": path.resolve(__dirname, "../Views"),
-        "@shared": path.resolve(__dirname, "../Views/Shared"),
-        "@components": path.resolve(__dirname, "../Views/Shared/Components"),
-        "@blocks": path.resolve(__dirname, "../Views/Shared/Blocks"),
-        "@react": path.resolve(__dirname, "./src/js/react"),
-        "@js": path.resolve(__dirname, "./src/js"),
-        "@icons": path.resolve(__dirname, "./src/assets/icons"),
+        "@": config.paths.src,
+        "@layouts": config.paths.sharedLayouts,
+        "@views": config.paths.sharedViews,
+        "@shared": config.paths.sharedViews,
+        "@components": config.paths.sharedComponents,
+        "@blocks": config.paths.sharedBlocks,
+        "@react": config.paths.reactJs,
+        "@js": config.paths.js,
+        "@icons": config.paths.icons,
       },
     },
     module: {
@@ -51,10 +54,9 @@ module.exports = (env) => {
             },
           },
         },
-
         {
           test: /\.s[ac]ss$/i,
-          include: path.resolve(__dirname, `./src/scss/themes/${activeTheme}`),
+          include: config.paths.themes(activeTheme),
           use: [
             MiniCssExtractPlugin.loader,
             "css-loader",
@@ -63,10 +65,10 @@ module.exports = (env) => {
               options: {
                 sassOptions: {
                   includePaths: [
-                    path.resolve(__dirname, `./src/scss/themes/${activeTheme}`),
-                    path.resolve(__dirname, "./src/scss/base"),
-                    path.resolve(__dirname, "./src/scss/components"),
-                    path.resolve(__dirname, "./src/scss/utils"),
+                    config.paths.themes(activeTheme),
+                    config.paths.baseScss,
+                    config.paths.componentsScss,
+                    config.paths.utilsScss,
                   ],
                 },
               },
@@ -126,7 +128,7 @@ module.exports = (env) => {
         combine: true,
       }),
       new HtmlWebpackPlugin({
-        template: "./src/index.html",
+        template: path.resolve(config.paths.src, "index.html"),
         filename: "index.html",
         inject: "body",
         chunks: ["main", `theme-${activeTheme}`], // Inject the main script and active theme

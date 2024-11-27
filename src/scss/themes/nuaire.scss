@@ -16,9 +16,8 @@ $brand-colors-override: (
   ),
 );
 
-@use "../../base/colors" with (
+@use "../base/colors" with (
   $brand-colors-override: $brand-colors-override
 );
 
-@use "../../base/base";
-@use "../../components/index.scss";
+@use "../index";
